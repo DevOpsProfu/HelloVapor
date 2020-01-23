@@ -1,5 +1,5 @@
 pipeline {
-agent any	
+agent any
     stages{
         stage('Programacion de liberación'){
             steps{
@@ -18,7 +18,9 @@ agent any
                 }
             }
         }
+	}
 
+	stages{
         stage('Aprobacion Usuario'){
 			steps{
 				script{
@@ -58,8 +60,10 @@ agent any
 				}
 			}
         }    
-
-        stage('Notoficacion GitHub'){  
+	}
+	
+	stages{
+        stage('Notificacion GitHub'){  
 			steps{
 				script{
 					echo 'Ingresa comentarios y aprueba pullrequest'    
