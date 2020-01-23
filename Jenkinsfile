@@ -1,5 +1,3 @@
-//def testsOk = true
-
 pipeline {
     stages{
         stage('Programacion de liberación'){
@@ -21,48 +19,54 @@ pipeline {
         }
 
         stage('Aprobacion Usuario'){
-            script{
-                try{
-                    def inputStep = input(
-                        message: "¿Otorga el Vobo para salir a producción?",
-                        ok: "Si",
-                        submitterParameter: "APPROVER"
-                    ) 
-                }
-                catch(err){
-                    echo 'No se promovera a release'
-                    currentBuild.result = 'ABORTED'
-                    githubPRClosePublisher statusVerifier: allowRunOnStatus('ABORTED')
-                    error 'Se aborto pase a producción'
-                }
-            }
+			steps{
+				script{
+					try{
+						def inputStep = input(
+							message: "¿Otorga el Vobo para salir a producción?",
+							ok: "Si",
+							submitterParameter: "APPROVER"
+						) 
+					}
+					catch(err){
+						echo 'No se promovera a release'
+						currentBuild.result = 'ABORTED'
+						githubPRClosePublisher statusVerifier: allowRunOnStatus('ABORTED')
+						error 'Se aborto pase a producción'
+					}
+				}
+			}
         }
 
         stage('Aprobacion Control de Cambios'){
-            script{
-                try{
-                    def inputStep = input(
-                        message: "¿Otorga el Vobo para salir a producción?",
-                        ok: "Si",
-                        submitterParameter: "APPROVER"
-                        )
-                    }
-                catch(err){
-                    echo 'No se promovera a Producción'
-                    currentBuild.result = 'ABORTED'
-                    githubPRClosePublisher statusVerifier: allowRunOnStatus('ABORTED')
-                    error 'Se aborto pase a producción'
-                }
-            }
+			steps{
+				script{
+					try{
+						def inputStep = input(
+							message: "¿Otorga el Vobo para salir a producción?",
+							ok: "Si",
+							submitterParameter: "APPROVER"
+							)
+						}
+					catch(err){
+						echo 'No se promovera a Producción'
+						currentBuild.result = 'ABORTED'
+						githubPRClosePublisher statusVerifier: allowRunOnStatus('ABORTED')
+						error 'Se aborto pase a producción'
+					}
+				}
+			}
         }    
 
         stage('Notoficacion GitHub'){  
-            script{
-                echo 'Ingresa comentarios y aprueba pullrequest'    
-                currentBuild.result = 'SUCCESS'
-                //githubPRComment comment: githubPRMessage('Se aprueba pull request con el build ${BUILD_NUMBER}'), statusVerifier: allowRunOnStatus('SUCCESS')
-                //githubPRStatusPublisher buildMessage: message(failureMsg: githubPRMessage('Can\'t set status; build failed.'), successMsg: githubPRMessage('Can\'t set status; build succeeded.')), statusMsg: githubPRMessage('Se aprueba pull request con el build ${BUILD_NUMBER}'), statusVerifier: allowRunOnStatus('SUCCESS'), unstableAs: 'FAILURE'
-            }
-        }
+			steps{
+				script{
+					echo 'Ingresa comentarios y aprueba pullrequest'    
+					currentBuild.result = 'SUCCESS'
+					//githubPRComment comment: githubPRMessage('Se aprueba pull request con el build ${BUILD_NUMBER}'), statusVerifier: allowRunOnStatus('SUCCESS')
+					//githubPRStatusPublisher buildMessage: message(failureMsg: githubPRMessage('Can\'t set status; build failed.'), successMsg: githubPRMessage('Can\'t set status; build succeeded.')), statusMsg: githubPRMessage('Se aprueba pull request con el build ${BUILD_NUMBER}'), statusVerifier: allowRunOnStatus('SUCCESS'), unstableAs: 'FAILURE'
+				}
+			}
+		}
     }
 }
