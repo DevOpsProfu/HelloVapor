@@ -1,5 +1,3 @@
-Jenkinsfile (Declarative Pipeline)
-
 //def testsOk = true
 
 pipeline {
