@@ -18,7 +18,7 @@ agent any
                 }
             }
         }
-	}
+	
 
 	stages{
         stage('Aprobacion Usuario'){
@@ -62,7 +62,6 @@ agent any
         }    
 	}
 	
-	stages{
         stage('Notificacion GitHub'){  
 			steps{
 				script{
