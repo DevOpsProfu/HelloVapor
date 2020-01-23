@@ -1,4 +1,5 @@
 pipeline {
+agent any	
     stages{
         stage('Programacion de liberación'){
             steps{
