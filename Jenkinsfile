@@ -5,17 +5,19 @@ pipeline {
         //node('master'){
             stage('Programacion de liberación'){
                 steps{
-                def inputStep = input(
-                        message: "¿Ingrese los valores requeridos?",
-                        ok: "Si",
-                        parameters:[    
-                            [$class: 'TextParameterDefinition', defaultValue: '####', description: 'Numero de liberación', name: 'liberacionNo'],
-                            [$class: 'TextParameterDefinition', defaultValue: 'Proyecto', description: 'Tipo de liberación', name: 'proyectoTipo'],
-                            [$class: 'TextParameterDefinition', defaultValue: "26/11/2019 08:00 P.M.", description: 'Fecha de liberacion', name: 'liberacionFecha'],
-                            //[$class: 'ChoiceParameterValue', name: 'choiceParam', value: "1\n\2\n3\n"]
-                            //[$class: 'DateParameterDefinition', name:"FechaLiberacion",dateFormat: 'ddMMYY', defaultValue: 'LocalDate.now()',description: 'Fecha de liberación solicitada']
-                        ]
-                    )
+                    script{
+                        def inputStep = input(
+                            message: "¿Ingrese los valores requeridos?",
+                            ok: "Si",
+                            parameters:[    
+                                [$class: 'TextParameterDefinition', defaultValue: '####', description: 'Numero de liberación', name: 'liberacionNo'],
+                                [$class: 'TextParameterDefinition', defaultValue: 'Proyecto', description: 'Tipo de liberación', name: 'proyectoTipo'],
+                                [$class: 'TextParameterDefinition', defaultValue: "26/11/2019 08:00 P.M.", description: 'Fecha de liberacion', name: 'liberacionFecha'],
+                                //[$class: 'ChoiceParameterValue', name: 'choiceParam', value: "1\n\2\n3\n"]
+                                //[$class: 'DateParameterDefinition', name:"FechaLiberacion",dateFormat: 'ddMMYY', defaultValue: 'LocalDate.now()',description: 'Fecha de liberación solicitada']
+                            ]
+                        )
+                    }
                 }
             }
 
