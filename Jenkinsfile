@@ -2,7 +2,7 @@
 
 pipeline {
     stages{
-        node('master'){
+        //node('master'){
             stage('Programacion de liberación'){
                 def inputStep = input(
                     message: "¿Ingrese los valores requeridos?",
@@ -15,7 +15,7 @@ pipeline {
                         //[$class: 'DateParameterDefinition', name:"FechaLiberacion",dateFormat: 'ddMMYY', defaultValue: 'LocalDate.now()',description: 'Fecha de liberación solicitada']
                     ]
                 )
-        }
+            }
 
             stage('Aprobacion Usuario'){
                 try{
@@ -55,5 +55,5 @@ pipeline {
                 //githubPRStatusPublisher buildMessage: message(failureMsg: githubPRMessage('Can\'t set status; build failed.'), successMsg: githubPRMessage('Can\'t set status; build succeeded.')), statusMsg: githubPRMessage('Se aprueba pull request con el build ${BUILD_NUMBER}'), statusVerifier: allowRunOnStatus('SUCCESS'), unstableAs: 'FAILURE'
             }
         }
-    }
+    //}
 }
