@@ -19,47 +19,50 @@ agent any
             }
         }
 	
-		parallel{
-			stage('Aprobacion Usuario'){
-				steps{
-					script{
-						try{
-							def inputStep = input(
-								message: "¿Otorga el Vobo para salir a producción?",
-								ok: "Si",
-								submitterParameter: "APPROVER"
-							) 
-						}
-						catch(err){
-							echo 'No se promovera a release'
-							currentBuild.result = 'ABORTED'
-							githubPRClosePublisher statusVerifier: allowRunOnStatus('ABORTED')
-							error 'Se aborto pase a producción'
-						}
-					}
-				}
-			}
-
-			stage('Aprobacion Control de Cambios'){
-				steps{
-					script{
-						try{
-							def inputStep = input(
-								message: "¿Otorga el Vobo para salir a producción?",
-								ok: "Si",
-								submitterParameter: "APPROVER"
-								)
+		stage('Aprobaciones'){
+			parallel{
+				stage('Aprobacion Usuario'){
+					steps{
+						script{
+							try{
+								def inputStep = input(
+									message: "¿Otorga el Vobo para salir a producción?",
+									ok: "Si",
+									submitterParameter: "APPROVER"
+								) 
 							}
-						catch(err){
-							echo 'No se promovera a Producción'
-							currentBuild.result = 'ABORTED'
-							githubPRClosePublisher statusVerifier: allowRunOnStatus('ABORTED')
-							error 'Se aborto pase a producción'
+							catch(err){
+								echo 'No se promovera a release'
+								currentBuild.result = 'ABORTED'
+								githubPRClosePublisher statusVerifier: allowRunOnStatus('ABORTED')
+								error 'Se aborto pase a producción'
+							}
 						}
 					}
 				}
-			}    
+
+				stage('Aprobacion Control de Cambios'){
+					steps{
+						script{
+							try{
+								def inputStep = input(
+									message: "¿Otorga el Vobo para salir a producción?",
+									ok: "Si",
+									submitterParameter: "APPROVER"
+									)
+								}
+							catch(err){
+								echo 'No se promovera a Producción'
+								currentBuild.result = 'ABORTED'
+								githubPRClosePublisher statusVerifier: allowRunOnStatus('ABORTED')
+								error 'Se aborto pase a producción'
+							}
+						}
+					}
+				}    
+			}
 		}
+		
         stage('Notificacion GitHub'){  
 			steps{
 				script{
