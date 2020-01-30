@@ -1,6 +1,6 @@
 pipeline{
 agent any
-	stage('Compilación Prod'){
+	stage('Compilacion Prod'){
 		steps{
 			script{
                 def inputStep = input(
